@@ -50,7 +50,7 @@ saveChanges.addEventListener('click', async (event) => {
         imageData.append('userId',currentUserID)
         console.log("Image Data:", imageData);
         try {
-            const response = await fetch('http://localhost:3000/upload', {
+            const response = await fetch('/upload', {
                 method: 'POST',
                 body: imageData, // Use imageData instead of image
                 headers: {
