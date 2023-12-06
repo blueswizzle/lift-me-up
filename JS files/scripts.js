@@ -51,7 +51,7 @@ document.getElementById("login-form").addEventListener("submit", async function 
         if (response.ok) {
             // Authentication successful
             const data = await response.json();
-            console.log("Login successful:", data);
+            console.log("Login successful");
 
             // You can redirect or perform other actions here.
         } else {
@@ -99,7 +99,7 @@ document.getElementById("createAccount-form").addEventListener("submit", async f
     
             if (response.ok) {
                 const user = await response.json();
-                console.log("User created:", user);
+                console.log("User created");
                 // Handle success, maybe redirect to login page
             } else {
                 const errorData = await response.json();
