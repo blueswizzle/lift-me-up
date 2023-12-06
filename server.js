@@ -128,7 +128,7 @@ app.get('/search/:id', async (req, res) => {
       res.render('userSearch', { users, searchTerm: userSearch, title: "Search" });
   } catch (error) {
       console.error("Error fetching users:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+      return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -167,7 +167,7 @@ app.get('/api/user/:username', async (req,res) =>{
       res.status(200).json(users);
   } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
+     return res.status(500).json({ error: 'Internal Server Error' });
   }
 })
 
@@ -192,7 +192,7 @@ app.get('/profile/:id', async (req, res) => {
       
   } catch (error) {
       console.error("Error:", error);
-      res.status(500).send("Internal Server Error");
+      return res.status(500).send("Internal Server Error");
   }
 });
 
@@ -230,7 +230,7 @@ app.get('/myProfile/:id', async (req, res) => {
 
   } catch (error) {
       console.error("Error:", error);
-      res.status(500).send("Internal Server Error");
+      return res.status(500).send("Internal Server Error");
   }
 });
 
@@ -283,9 +283,9 @@ app.post('/api/users/create', async (req, res) => {
       gymProfile: gymProfile || null,
     });
 
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 });
 
