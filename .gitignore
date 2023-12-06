@@ -1,0 +1,19 @@
+# Node.js
+node_modules/
+
+# Logs
+logs
+*.log
+
+# Dependency directories
+lib/
+vendor/
+
+# Environment variables
+.env
+cloud.json
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
