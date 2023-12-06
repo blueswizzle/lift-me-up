@@ -45,7 +45,7 @@ removeButtons.forEach(removeButton => {
             };
 
             try {
-                const response = await fetch(`http://localhost:3000/api/users/removeFollower/${currentUser}`, {
+                const response = await fetch(`/api/users/removeFollower/${currentUser}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

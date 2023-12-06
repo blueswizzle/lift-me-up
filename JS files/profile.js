@@ -10,7 +10,7 @@ const followers = document.querySelectorAll('.follower');
 
 document.addEventListener("DOMContentLoaded", async ()=>{
     try {
-        const response = await fetch(`http://localhost:3000/api/users/${currentUserID}`,{
+        const response = await fetch(`/api/users/${currentUserID}`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ followButton.addEventListener('click', async ()=>{
            
         }
         try{
-            const response = await fetch(`http://localhost:3000/api/users/addFollower/${currentUserID}`,{
+            const response = await fetch(`/api/users/addFollower/${currentUserID}`,{
                 method: 'PATCH',
                 headers:{
                     'Content-Type':'application/json'
@@ -69,7 +69,7 @@ followButton.addEventListener('click', async ()=>{
             const userToRemove = {
             followerID: followerID,
             }
-            const response = await fetch(`http://localhost:3000/api/users/removeFollower/${currentUserID}`,{
+            const response = await fetch(`/api/users/removeFollower/${currentUserID}`,{
                 method: 'PATCH',
                 headers:{
                     'Content-Type':'application/json'

@@ -40,7 +40,7 @@ document.getElementById("login-form").addEventListener("submit", async function 
     const password = document.getElementById("password").value;
 
     try {
-        const response = await fetch("http://localhost:3000/api/users/login", {
+        const response = await fetch("/api/users/login", {
             method: "POST",
             headers: {
                 "Content-Type": ["application/json"],
@@ -88,7 +88,7 @@ document.getElementById("createAccount-form").addEventListener("submit", async f
                 zNumber
             }
             console.log(userData);
-            const response = await fetch("http://localhost:3000/api/users/create", {
+            const response = await fetch("/api/users/create", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
