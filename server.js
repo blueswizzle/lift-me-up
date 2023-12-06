@@ -18,7 +18,19 @@ const storage = new Storage({
     keyFilename : process.env.CLOUD_KEY
 })
 
-app.use(cors());
+// app.use(cors());
+
+const allowedOrigins = ['https://lift-me-up-54af3aa4250c.herokuapp.com/', 'http://localhost:3000'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+}));
 app.use(cookieParser()); 
 
 app.use(express.json())
