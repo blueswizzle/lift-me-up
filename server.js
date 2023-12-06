@@ -20,7 +20,7 @@ const storage = new Storage({
 
 // app.use(cors());
 
-const allowedOrigins = ['https://lift-me-up-54af3aa4250c.herokuapp.com', 'http://localhost:3000/'];
+const allowedOrigins = ['https://lift-me-up-54af3aa4250c.herokuapp.com', 'http://localhost:3000'];
 
 app.use(cors({
   origin: function (origin, callback) {
