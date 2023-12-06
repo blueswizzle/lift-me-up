@@ -73,7 +73,7 @@ saveChanges.addEventListener('click', async (event) => {
     console.log(formData.userName);
 
     try {
-        const response = await fetch(`http://localhost:3000/api/users/update/${currentUserID}`, {
+        const response = await fetch(`/api/users/update/${currentUserID}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
