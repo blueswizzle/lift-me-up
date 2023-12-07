@@ -71,10 +71,10 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
-app.get('/uploads/:imageName', (req, res) => {
-  const imageName = req.params.imageName;
-  res.sendFile(path.join(__dirname, '/uploads', imageName));
-});
+// app.get('/uploads/:imageName', (req, res) => {
+//   const imageName = req.params.imageName;
+//   res.sendFile(path.join(__dirname, '/uploads', imageName));
+// });
 
 app.get('/search/:id', async (req, res) => {
   try {
