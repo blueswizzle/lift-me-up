@@ -68,7 +68,7 @@ saveChanges.addEventListener('click', async (event) => {
         };
 
         try {
-            const response = await fetch(`http://localhost:3000/api/users/update/${currentUserID}`, {
+            const response = await fetch(`api/users/update/${currentUserID}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ saveChanges.addEventListener('click', async (event) => {
             console.log(error);
         }
         try {
-            const response = await fetch(`http://localhost:3000/api/users/update/${currentUserID}`, {
+            const response = await fetch(`/api/users/update/${currentUserID}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -115,7 +115,7 @@ saveChanges.addEventListener('click', async (event) => {
 confirmDeleteButton.addEventListener('click', async () => {
     try {
         const userID = sessionStorage.getItem('currentUserID');
-        const response = await fetch(`http://localhost:3000/api/users/delete/${userID}`, {
+        const response = await fetch(`api/users/delete/${userID}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
