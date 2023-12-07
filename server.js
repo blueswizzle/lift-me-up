@@ -54,6 +54,7 @@ app.use((req, res, next) => {
     next();
   });
 
+const bucket = storage.bucket(process.env.BUCKET)
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
