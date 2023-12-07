@@ -171,67 +171,6 @@ nav {
         transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55 );
     }
 
-    .hamburger-toggle{
-        position: absolute;
-        top:.7rem;
-        right:1rem;
-        display:none;
-        flex-direction: column;
-        justify-content: space-between;
-        width:31px;
-        height:21px;
-    }
-
-    .hamburger-toggle .hamburger-bar{
-        height:3px;
-        width:100%;
-        background-color: white;
-        border-radius: 10px;
-    }
-
-    @media (max-width:850px){
-        .hamburger-toggle{
-            display:flex
-        }
-        .nav-menu{
-            display: none;
-        }
-        .log-out{
-            display: none;
-        }
-        .search-container{
-            display: none;
-        }
-        nav{
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .nav-menu{
-            flex-direction: column;
-            width:100%;
-        }
-        .nav-menu p{
-            width:100%;
-            text-align: center;
-        }
-
-        .search-container{
-            align-self: center;
-        }
-        .log-out{
-            align-self: center;
-        }
-        .nav-menu.active{
-            display: flex;
-        }
-        .search-container.active{
-            display: block;
-        }
-        .log-out.active{
-            display: block;
-        }
-    }
-
 /*--------- LOGIN PAGE CSS --------------------------------*/
 .login-container {
     background-color: #fff;
@@ -565,6 +504,30 @@ main{
     width: 50px;
     border-radius: 60%;
 }
+
+.profile-option {
+    max-width: 200px; 
+    max-height: 200px; 
+    object-fit: cover; 
+    display: block; 
+    margin: auto;
+    overflow: hidden;
+}
+
+.image-selector {
+    display: flex;
+    align-items: center;
+}
+
+.nav-buttons {
+    flex: 1;
+    text-align: center;
+}
+
+#prevImage,
+    #nextImage {
+        font-size: 24px; /* Adjust the font size as needed */
+    }
 
 .follower-body {
     display: flex;

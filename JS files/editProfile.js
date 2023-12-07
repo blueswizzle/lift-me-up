@@ -68,7 +68,7 @@ saveChanges.addEventListener('click', async (event) => {
         };
 
         try {
-            const response = await fetch(`api/users/update/${currentUserID}`, {
+            const response = await fetch(`/api/users/update/${currentUserID}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

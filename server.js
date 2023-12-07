@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.use(express.json())
 
 
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + "/"));
 app.use((req,res,next) =>{  
     next()
 })
@@ -43,7 +43,7 @@ app.use((req, res, next) => {
     }
     next();
   });
-console.log("DIR NAME IS ", __dirname)
+console.log("DIR NAME IS ", __dirname + "/")
 
 
 app.set('view engine', 'ejs');
@@ -71,10 +71,10 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
-// app.get('/uploads/:imageName', (req, res) => {
-//   const imageName = req.params.imageName;
-//   res.sendFile(path.join(__dirname, '/uploads', imageName));
-// });
+app.get('/uploads/:imageName', (req, res) => {
+  const imageName = req.params.imageName;
+  res.sendFile(path.join(__dirname, '/', imageName));
+});
 
 app.get('/search/:id', async (req, res) => {
   try {
