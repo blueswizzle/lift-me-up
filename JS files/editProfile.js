@@ -1,5 +1,5 @@
 const currentUserID = sessionStorage.getItem('currentUserID');
-
+let currentImageIndex = 0;
 const saveChanges = document.getElementById('save-changes-button')
 
 const deleteAccountButton = document.getElementById('delete-account-button');
@@ -28,76 +28,94 @@ window.addEventListener('click', function (event) {
     }
 });
 
+function changeImage(direction) {
+    const imageOptions = document.getElementById('profilePicture');
+    const previewImage = document.getElementById('previewImage');
 
+    currentImageIndex += direction;
+
+    if (currentImageIndex < 0) {
+        currentImageIndex = imageOptions.length - 1;
+    } else if (currentImageIndex >= imageOptions.length) {
+        currentImageIndex = 0;
+    }
+
+    // Construct the correct path based on your requirements
+    const imagePath = imageOptions[currentImageIndex].value;
+
+    // Assuming that imagePath is in the format "frontend\images\avatar1.jpg"
+    const correctedImagePath = imagePath.replace(/\\/g, '/');  // Replace backslashes with forward slashes
+
+    // Set the corrected path to the preview image
+    previewImage.src = correctedImagePath;
+}
+
+document.getElementById('prevImage').addEventListener('click', () => changeImage(-1));
+document.getElementById('nextImage').addEventListener('click', () => changeImage(1));
 
 
 saveChanges.addEventListener('click', async (event) => {
-    event.preventDefault();
+        event.preventDefault();
+        const selectedImageIndex = currentImageIndex;
+        const imageOptions = document.getElementById('profilePicture').options;
+        const selectedImage = imageOptions[selectedImageIndex].value;
+        const formData = {
+            userName: document.getElementById('username').value,
+            editPassword: document.getElementById('editPassword').value,
+            rePassword: document.getElementById('rePassword').value,
+            personalProfile: document.getElementById('personalDescription').value,
+            gymProfile: document.getElementById('gymDescription').value,
+        };
 
-    const formData = {
-        userName: document.getElementById('username').value,
-        editPassword: document.getElementById('editPassword').value,
-        rePassword: document.getElementById('rePassword').value,
-        personalProfile: document.getElementById('personalDescription').value,
-        gymProfile: document.getElementById('gymDescription').value
-    };
-
-    const image = document.getElementById('imgfile').files[0];
-    const imageData = new FormData();
-
-    if (image) {
-        imageData.append('imgfile', image);
-        imageData.append('userId',currentUserID)
-        console.log("Image Data:", imageData);
         try {
-            const response = await fetch('/upload', {
-                method: 'POST',
-                body: imageData, // Use imageData instead of image
+            const response = await fetch(`http://localhost:3000/api/users/update/${currentUserID}`, {
+                method: 'PATCH',
                 headers: {
-                    // 'Content-Type': 'multipart/form-data', // Set Content-Type header
+                    'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({ profileImage: selectedImage }),
             });
 
-            const result = await response.json();
-            if(response.ok){
-                console.log(result)
-            }else{
-                console.log(result.error)
+            const updated = await response.json();
+            if (response.ok) {
+                console.log("Successfully updated user with selected profile image");
+                console.log(updated);
+                window.location.href = `/myProfile/${currentUserID}`;
+            } else {
+                console.log(updated.error);
             }
-            console.log(result);
         } catch (error) {
             console.log(error);
         }
-    }
-
-    try {
-        const response = await fetch(`/api/users/update/${currentUserID}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
-
-        const updated = await response.json();
-        if (response.ok) {
-            console.log("Successfully updated user");
-            console.log(updated);
-            // window.location.href = `/myProfile/${currentUserID}`;
-        } else {
-            console.log(updated.error);
+        try {
+            const response = await fetch(`http://localhost:3000/api/users/update/${currentUserID}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+    
+            const updated = await response.json();
+            if (response.ok) {
+                console.log("Successfully updated user");
+                console.log(updated);
+                window.location.href = `/myProfile/${currentUserID}`;
+            } else {
+                console.log(updated.error);
+            }
+        } catch (error) {
+            console.log(error);
         }
-    } catch (error) {
-        console.log(error);
-    }
 });
+
 
 
 
 confirmDeleteButton.addEventListener('click', async () => {
     try {
         const userID = sessionStorage.getItem('currentUserID');
-        const response = await fetch(`/api/users/delete/${userID}`, {
+        const response = await fetch(`http://localhost:3000/api/users/delete/${userID}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
