@@ -13,7 +13,19 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser'); 
 
 
-app.use(cors());
+// app.use(cors());
+
+const allowedOrigins = ['http://localhost:3000','https://lift-me-up-54af3aa4250c.herokuapp.com'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+}));
 app.use(cookieParser()); 
 
 app.use(express.json())
