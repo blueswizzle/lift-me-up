@@ -60,17 +60,15 @@ saveChanges.addEventListener('click', async (event) => {
 
             const result = await response.json();
             if(response.ok){
-                // console.log(result)
+                console.log(result)
             }else{
                 console.log(result.error)
             }
-            // console.log(result);
+            console.log(result);
         } catch (error) {
             console.log(error);
         }
     }
-
-    console.log(formData.userName);
 
     try {
         const response = await fetch(`/api/users/update/${currentUserID}`, {
@@ -84,8 +82,8 @@ saveChanges.addEventListener('click', async (event) => {
         const updated = await response.json();
         if (response.ok) {
             console.log("Successfully updated user");
-            // console.log(updated);
-            window.location.href = `/myProfile/${currentUserID}`;
+            console.log(updated);
+            // window.location.href = `/myProfile/${currentUserID}`;
         } else {
             console.log(updated.error);
         }

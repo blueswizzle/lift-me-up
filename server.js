@@ -12,11 +12,16 @@ const axios = require('axios')
 const cors = require('cors');
 const cookieParser = require('cookie-parser'); 
 const { Storage } = require('@google-cloud/storage')
+const multer = require('multer');
+const AWS = require('aws-sdk');
 
-const storage = new Storage({
-    projectId :process.env.PROJECT_ID,
-    keyFilename : process.env.CLOUD_KEY
-})
+const multerS3 = require('multer-s3');
+
+
+const { uploadFile} = require('./s3')
+
+
+const upload = multer();
 
 // app.use(cors());
 
@@ -49,60 +54,59 @@ app.use((req, res, next) => {
     next();
   });
 
-const bucket = storage.bucket('images-boi')
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-const multer = require('multer');
 
-const upload = multer();
-
-
-app.post("/upload", upload.single('imgfile'), async (req, res) => {
-    console.log("Made it /upload");
-    console.log("Request file:", req.file);
+  app.post('/upload',  upload.single("imgfile"),async (req, res) => {
+    console.log('Made it /upload');
+    console.log('Request file:', req.file);
   
     try {
       if (req.file) {
-        console.log("File found, trying to upload...");
+        console.log('File found, trying to upload...');
   
         // Assuming req.body.userId contains the user ID
         const userId = req.body.userId;
   
-        // Construct the image URL based on your server and bucket setup
-        const imageUrl = `https://storage.googleapis.com/images-boi/${req.file.originalname}`;
-  
+        // Construct the image URL based on your S3 bucket setup
+        const imageUrl = req.file.location;
+
+       const uploadRes =  await uploadFile(req.file)
+        console.log(uploadRes)
         // Update the user's profileImage field with the image URL
-        await User.findByIdAndUpdate(userId, { $set: { profileImage: imageUrl } });
+        await User.findByIdAndUpdate(userId, { $set: { profileImage: uploadRes.Location } });
   
-        const blob = bucket.file(req.file.originalname);
-        const blobStream = blob.createWriteStream();
-  
-        blobStream.on("finish", () => {
-          res.status(200).send("Success");
-          console.log("Success");
-        });
-        blobStream.end(req.file.buffer);
+        res.status(200).send('Success');
+        console.log('Success');
       } else {
-        console.log("Something wrong with the image");
-        res.status(400).send("Bad Request");
+        console.log('Something wrong with the image');
+        res.status(400).send('Bad Request');
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
       res.status(500).send(error);
     }
   });
 
-  app.get("/upload", async (req, res) => {
+
+
+  app.get('/upload', async (req, res) => {
     try {
-      const [files] = await bucket.getFiles();
-      res.send([files]);
-      console.log("Success");
+      const params = {
+        Bucket: 'liftmeup-images', // Replace with your S3 bucket name
+      };
+  
+      const files = await s3.listObjectsV2(params).promise();
+  
+      res.send(files.Contents);
+      console.log('Success');
     } catch (error) {
-      res.send("Error:" + error);
+      res.send('Error:' + error);
     }
   });
+  
 
 /*
 
