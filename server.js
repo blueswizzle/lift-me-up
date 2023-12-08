@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose')
 const CurrentStudent = require('./models/currentStudent');
-const User = require('./models/userModal');
+const User = require('./models/userModel');
 const path = require('path');
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.use(express.json())
 
 
-app.use(express.static(__dirname + "/"));
+app.use(express.static(path.join(__dirname, '/')));
 app.use((req,res,next) =>{  
     next()
 })
@@ -43,7 +43,7 @@ app.use((req, res, next) => {
     }
     next();
   });
-console.log("DIR NAME IS ", __dirname + "/")
+
 
 
 app.set('view engine', 'ejs');
@@ -71,10 +71,7 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
-app.get('/uploads/:imageName', (req, res) => {
-  const imageName = req.params.imageName;
-  res.sendFile(path.join(__dirname, '/', imageName));
-});
+
 
 app.get('/search/:id', async (req, res) => {
   try {
@@ -141,15 +138,14 @@ app.get('/profile/:id', async (req, res) => {
       const id = req.params.id
       const user = await User.findById(id).populate({
           path: 'followers',
-          select: '_id userName firstName lastName profileImage'
+          select: '_id userName firstName lastName'
       });
       console.log("User is  ", user);
       const followers = user.followers.map(follower => ({
           _id: follower._id,
           userName: follower.userName,
           firstName: follower.firstName,
-          lastName: follower.lastName,
-          profileImage: follower.profileImage
+          lastName: follower.lastName
     }));
       res.render('profile', {user, followers,title:user.userName});
 
@@ -482,10 +478,10 @@ try {
 // connect to database
 mongoose.connect(process.env.MONGO_URI)
   .then(() =>{
-      app.listen(PORT, ()=>{
-          console.log("Connected to Database. Listening on port ", PORT)
-      })
+    app.listen(process.env.PORT || 3000, function(){
+      console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+    })
   })
   .catch((error) =>{
-      console.log(error)
+    console.error("Database connection error:", error);
   })
