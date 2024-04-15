@@ -10,7 +10,7 @@ Are you an student at Florida Atlantic University looking for gym partners? Havi
 This app allows local communities to join a vetted network of people. Once joined users can search members by username. They can find more about there personality and gym information, as well as what they are currently doing or at the gym. Users can update there profile along durring thier stay and grow on the platform or delete thier acount when ever they wish.
 
 Members/Contributions
-Atheek Ashkar Z23414318
+Atheek Ashkar 
 
     Milestone 1: Log in/Register - Front End
     Milestone 1: Profile Page - Front End
@@ -22,7 +22,7 @@ Atheek Ashkar Z23414318
     Milestone 4: OpenWeather External API
 
 
-Manny Jimenez Z23517458
+Manny Jimenez
 
     Milestone 1: Log in/Register - Front End
     Milestone 1: Profile Page - Front End
@@ -33,7 +33,7 @@ Manny Jimenez Z23517458
     Milestone 4: Readme
 
 
-Nolan Quinn Z23690245
+Nolan Quinn 
 
     Milestone 1: Edit Profile Page - Front End
     Milestone 2: Log in/Register - Back End
@@ -43,7 +43,7 @@ Nolan Quinn Z23690245
     Milestone 4: OpenWeather External API
 
 
-Yi Yang Liew Z23659396
+Yi Yang Liew
 
     Milestone 1: Search Results By User Name Page - Front End
     Milestone 2: Stich Front End
